@@ -6,9 +6,10 @@ import { HeaderWrap } from './style';
 
 interface IProps {
    restaurantCount: number;
+   onFormOpen: () => void;
 }
 
-const Header: React.FC<IProps> = ({ restaurantCount }) => {
+const Header: React.FC<IProps> = ({ restaurantCount, onFormOpen }) => {
    return (
       <HeaderWrap>
          <Container>
@@ -35,7 +36,7 @@ const Header: React.FC<IProps> = ({ restaurantCount }) => {
                   ]}
                   onSelect={(value) => console.log('Selected: ', value)}
                />
-               <button className="new-btn">
+               <button className="new-btn" onClick={onFormOpen}>
                   <div>
                      <img src="/icons/plus.svg" alt="Plus icon" />
                   </div>
