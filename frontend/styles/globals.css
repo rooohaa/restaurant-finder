@@ -4,6 +4,20 @@
    box-sizing: border-box;
 }
 
+body {
+   font-family: 'Rubik', sans-serif;
+   background-color: #141625;
+}
+
+button,
+input {
+   font-family: 'Rubik', sans-serif;
+}
+
+button {
+   cursor: pointer;
+}
+
 ul {
    list-style: none;
 }
