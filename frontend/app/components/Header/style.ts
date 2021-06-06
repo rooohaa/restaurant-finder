@@ -2,6 +2,7 @@ import { Container } from 'app/sc/Container';
 import styled from 'styled-components';
 
 const HeaderWrap = styled.header`
+   height: 175px;
    ${Container} {
       display: flex;
       align-items: flex-start;
