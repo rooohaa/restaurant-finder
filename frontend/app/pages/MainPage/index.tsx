@@ -10,7 +10,7 @@ const MainPage: React.FC = () => {
 
    return (
       <MainSection>
-         <Header restaurantCount={12} onFormOpen={() => setFormActive(true)} />
+         <Header onFormOpen={() => setFormActive(true)} />
          <RestaurantsSection />
          {formActive && <ModalForm onClose={() => setFormActive(false)} />}
       </MainSection>

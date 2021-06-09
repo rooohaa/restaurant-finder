@@ -1,4 +1,7 @@
 import Head from 'next/head';
+import store from 'store';
+import { Provider } from 'react-redux';
+
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
@@ -11,7 +14,9 @@ function MyApp({ Component, pageProps }) {
             />
             <title>Restaurant Finder</title>
          </Head>
-         <Component {...pageProps} />
+         <Provider store={store}>
+            <Component {...pageProps} />
+         </Provider>
       </>
    );
 }

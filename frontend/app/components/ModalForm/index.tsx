@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addRestaurantAsync } from 'store/reducers/restaurantsReducer';
+
 import { Formik, Field, Form } from 'formik';
 import * as yup from 'yup';
 
@@ -7,7 +10,7 @@ import { ModalOverlay } from './style';
 interface InitFormState {
    name: string;
    location: string;
-   priceRange: string;
+   price_range: string;
 }
 
 interface IProps {
@@ -18,16 +21,18 @@ const ModalForm: React.FC<IProps> = ({ onClose }) => {
    const [success, setSuccess] = useState<boolean>(false);
    const [error, setError] = useState<boolean>(false);
 
+   const dispatch = useDispatch();
+
    const initialValues: InitFormState = {
       name: '',
       location: '',
-      priceRange: '',
+      price_range: '',
    };
 
    const validationSchema = yup.object().shape({
       name: yup.string().required('Name should not be empty'),
       location: yup.string().required('Location should not be empty'),
-      priceRange: yup.string().required('Price should not be empty'),
+      price_range: yup.string().required('Price should not be empty'),
    });
 
    return (
@@ -38,7 +43,11 @@ const ModalForm: React.FC<IProps> = ({ onClose }) => {
             <Formik
                initialValues={initialValues}
                onSubmit={(values: InitFormState, { resetForm }) => {
-                  console.log('Form data: ', values);
+                  const { name, location, price_range } = values;
+
+                  const newRestaurant = { name, location, price_range };
+                  dispatch(addRestaurantAsync(newRestaurant));
+
                   setSuccess(true);
                   resetForm();
 
@@ -76,15 +85,15 @@ const ModalForm: React.FC<IProps> = ({ onClose }) => {
                      </div>
 
                      <div className="form-control">
-                        <label htmlFor="price-range">Price range</label>
+                        <label htmlFor="priceRange">Price range</label>
                         <Field
                            type="text"
-                           name="priceRange"
-                           id="price-range"
+                           name="price_range"
+                           id="priceRange"
                            placeholder="ex: 2000-10000"
                         />
-                        {errors.priceRange && touched.priceRange && (
-                           <span className="error">{errors.priceRange}</span>
+                        {errors.price_range && touched.price_range && (
+                           <span className="error">{errors.price_range}</span>
                         )}
                      </div>
 

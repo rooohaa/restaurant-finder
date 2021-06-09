@@ -7,14 +7,14 @@ interface IProps {
    id: number;
    name: string;
    location: string;
-   priceRange: string;
+   price_range: string;
 }
 
 const RestaurantCard: React.FC<IProps> = ({
    id,
    name,
    location,
-   priceRange,
+   price_range,
 }) => {
    return (
       <CardWrapper>
@@ -23,7 +23,7 @@ const RestaurantCard: React.FC<IProps> = ({
          <span className="res-location">{location}</span>
          <div className="price-range">
             <span></span>
-            <p>{priceRange} KZT</p>
+            <p>{price_range} KZT</p>
          </div>
 
          <div className="controls">

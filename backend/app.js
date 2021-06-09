@@ -18,13 +18,23 @@ app.use(cors());
 app.get('/api/restaurants', async (req, res) => {
    try {
       const result = await db.query('SELECT * FROM restaurants');
-      res.status(200).json({
-         results: result.rows.length,
-         restaurants: result.rows,
-      });
+      res.status(200).json(result.rows);
    } catch (e) {
       console.log('Error ocurred: ', e);
    }
+});
+
+// Post restaurant to db
+app.post('/api/restaurants', async (req, res) => {
+   const { name, location, price_range } = req.body;
+
+   try {
+      const result = await db.query(
+         'INSERT INTO restaurants (name, location, price_range) VALUES ($1, $2, $3) RETURNING *',
+         [name, location, price_range]
+      );
+      res.status(200).json(result.rows[0]);
+   } catch (e) {}
 });
 
 // Get restaurant by id
