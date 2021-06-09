@@ -36,12 +36,17 @@ const initialState: InitState = {
    restaurants: [],
    isLoading: false,
    error: false,
+   sortProperty: '',
 };
 
 const restaurantsReducer = createSlice({
    name: 'restaurants',
    initialState,
-   reducers: {},
+   reducers: {
+      setSortProp(state, action) {
+         state.sortProperty = action.payload;
+      },
+   },
    extraReducers: {
       [`${getRestaurantsAsync.pending}`]: (state) => {
          state.isLoading = true;
@@ -78,6 +83,9 @@ interface InitState {
    restaurants: TRestaurantsData[];
    isLoading: boolean;
    error: boolean;
+   sortProperty: string;
 }
+
+export const { setSortProp } = restaurantsReducer.actions;
 
 export default restaurantsReducer.reducer;

@@ -2,14 +2,19 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 
-import { Container } from 'app/sc/Container';
 import { RestaurantCard, Spinner } from 'app/components';
+import { Container } from 'app/sc/Container';
+import { sortRestaurants } from 'utils/sortRestaurants';
 
 import { SectionWrap } from './style';
 
 const RestaurantsSection: React.FC = () => {
-   const { restaurants, isLoading, error } = useSelector(
+   const { restaurants, isLoading, error, sortProperty } = useSelector(
       (state: RootState) => state.restaurantsReducer
+   );
+   const filteredRestaurants = sortRestaurants(
+      restaurants,
+      sortProperty.toLowerCase()
    );
 
    if (error) {
@@ -21,18 +26,24 @@ const RestaurantsSection: React.FC = () => {
          <Container>
             {isLoading ? (
                <Spinner />
-            ) : (
+            ) : restaurants.length > 0 ? (
                <ul>
-                  {restaurants.map(({ id, name, location, price_range }) => (
-                     <RestaurantCard
-                        key={id}
-                        id={id}
-                        name={name}
-                        location={location}
-                        price_range={price_range}
-                     />
-                  ))}
+                  {filteredRestaurants.map(
+                     ({ id, name, location, price_range }) => (
+                        <RestaurantCard
+                           key={id}
+                           id={id}
+                           name={name}
+                           location={location}
+                           price_range={price_range}
+                        />
+                     )
+                  )}
                </ul>
+            ) : (
+               <span className="mess">
+                  There is no restaurants in our database
+               </span>
             )}
          </Container>
       </SectionWrap>

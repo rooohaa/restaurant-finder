@@ -39,7 +39,6 @@ const Header: React.FC<IProps> = ({ onFormOpen }) => {
                         value: 'Price',
                      },
                   ]}
-                  onSelect={(value) => console.log('Selected: ', value)}
                />
                <button className="new-btn" onClick={onFormOpen}>
                   <div>

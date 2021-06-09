@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSortProp } from 'store/reducers/restaurantsReducer';
 
 import { SelectWrap } from './style';
 
@@ -9,18 +11,18 @@ interface IItem {
 
 interface IProps {
    data: IItem[];
-   onSelect: (selectedItem: string) => void;
 }
 
-const Select: React.FC<IProps> = ({ data, onSelect }) => {
+const Select: React.FC<IProps> = ({ data }) => {
    const [listActive, setListActive] = useState<boolean>(false);
    const [selectedItem, setSelectedItem] = useState<string>('');
+   const dispatch = useDispatch();
 
    const handleSelect = (value) => {
       setSelectedItem(value);
       setListActive(false);
 
-      onSelect(value.toLowerCase());
+      dispatch(setSortProp(value));
    };
 
    return (
