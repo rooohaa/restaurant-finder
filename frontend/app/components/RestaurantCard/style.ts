@@ -75,6 +75,37 @@ const CardWrapper = styled.li`
          }
       }
    }
+
+   div.controls {
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+
+      button {
+         width: 35px;
+         height: 35px;
+
+         display: flex;
+         align-items: center;
+         justify-content: center;
+
+         background-color: inherit;
+         border: none;
+         border-radius: 50%;
+
+         transition: background-color 0.3s ease-out;
+
+         &:hover {
+            background-color: rgba(108, 85, 208, 0.3);
+         }
+
+         img {
+            width: 13px;
+            height: 13px;
+            object-fit: cover;
+         }
+      }
+   }
 `;
 
 export { CardWrapper };

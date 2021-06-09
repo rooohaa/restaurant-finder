@@ -25,11 +25,22 @@ const RestaurantCard: React.FC<IProps> = ({
             <span></span>
             <p>{priceRange} KZT</p>
          </div>
-         <Link href={`/${id}`}>
-            <a>
-               <img src="/icons/arrow-down.svg" alt="Arrow down" />
-            </a>
-         </Link>
+
+         <div className="controls">
+            <button>
+               <img src="/icons/pen-solid.svg" alt="Edit icon" />
+            </button>
+
+            <button>
+               <img src="/icons/times-solid.svg" alt="Delete icon" />
+            </button>
+
+            <Link href={`/${id}`}>
+               <a>
+                  <img src="/icons/arrow-down.svg" alt="Arrow down" />
+               </a>
+            </Link>
+         </div>
       </CardWrapper>
    );
 };
