@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { TRestaurantsData } from 'store/reducers/restaurantsReducer';
-import { Header, ModalForm } from 'app/components';
+import { Header, ModalForm, ReviewCard } from 'app/components';
 import { RestaurantsSection } from './RestaurantsSection';
 
 import { MainSection } from './style';
