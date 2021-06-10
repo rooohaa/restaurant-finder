@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+const BASE_URL = 'http://localhost:8000';
+
 export const getRestaurantsAsync = createAsyncThunk(
    'restaurants/getRestaurants',
    async () => {
-      const res = await fetch('http://localhost:8000/api/restaurants');
+      const res = await fetch(`${BASE_URL}/api/restaurants`);
 
       if (res.ok) {
          const restaurants = await res.json();
@@ -16,7 +18,7 @@ export const getRestaurantsAsync = createAsyncThunk(
 export const addRestaurantAsync = createAsyncThunk(
    'restaurants/addRestaurant',
    async (payload: TRestaurantFormData) => {
-      const res = await fetch('http://localhost:8000/api/restaurants', {
+      const res = await fetch(`${BASE_URL}/api/restaurants`, {
          method: 'POST',
          headers: {
             'Content-type': 'application/json',
@@ -28,6 +30,40 @@ export const addRestaurantAsync = createAsyncThunk(
          const restaurant = await res.json();
 
          return { restaurant };
+      }
+   }
+);
+
+export const deleteRestaurantAsync = createAsyncThunk(
+   'restaurants/deleteRestaurant',
+   async (id: number) => {
+      const res = await fetch(`${BASE_URL}/api/restaurants/${id}`, {
+         method: 'DELETE',
+      });
+
+      if (res.ok) {
+         const restaurant = await res.json();
+
+         return { restaurant };
+      }
+   }
+);
+
+export const updateRestaurantAsync = createAsyncThunk(
+   'restaurants/updateRestaurant',
+   async (payload: TRestaurantsData) => {
+      const res = await fetch(`${BASE_URL}/api/restaurants/${payload.id}`, {
+         method: 'PUT',
+         headers: {
+            'Content-type': 'application/json',
+         },
+         body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+         const updatedRestaurant = await res.json();
+
+         return { restaurant: updatedRestaurant };
       }
    }
 );
@@ -62,6 +98,17 @@ const restaurantsReducer = createSlice({
       },
       [`${addRestaurantAsync.fulfilled}`]: (state, action) => {
          state.restaurants.push(action.payload.restaurant);
+      },
+      [`${deleteRestaurantAsync.fulfilled}`]: (state, action) => {
+         const restId = action.payload.restaurant.id;
+         state.restaurants = state.restaurants.filter((el) => el.id !== restId);
+      },
+      [`${updateRestaurantAsync.fulfilled}`]: (state, action) => {
+         const idx = state.restaurants.findIndex(
+            (el) => el.id === action.payload.restaurant.id
+         );
+
+         state.restaurants[idx] = action.payload.restaurant;
       },
    },
 });

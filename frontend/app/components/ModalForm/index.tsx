@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addRestaurantAsync } from 'store/reducers/restaurantsReducer';
+import {
+   addRestaurantAsync,
+   updateRestaurantAsync,
+   TRestaurantsData,
+} from 'store/reducers/restaurantsReducer';
 
 import { Formik, Field, Form } from 'formik';
 import * as yup from 'yup';
@@ -15,18 +19,19 @@ interface InitFormState {
 
 interface IProps {
    onClose: () => void;
+   restaurantInitValues?: TRestaurantsData;
 }
 
-const ModalForm: React.FC<IProps> = ({ onClose }) => {
+const ModalForm: React.FC<IProps> = ({ onClose, restaurantInitValues }) => {
    const [success, setSuccess] = useState<boolean>(false);
    const [error, setError] = useState<boolean>(false);
 
    const dispatch = useDispatch();
 
    const initialValues: InitFormState = {
-      name: '',
-      location: '',
-      price_range: '',
+      name: restaurantInitValues ? restaurantInitValues.name : '',
+      location: restaurantInitValues ? restaurantInitValues.location : '',
+      price_range: restaurantInitValues ? restaurantInitValues.price_range : '',
    };
 
    const validationSchema = yup.object().shape({
@@ -45,8 +50,18 @@ const ModalForm: React.FC<IProps> = ({ onClose }) => {
                onSubmit={(values: InitFormState, { resetForm }) => {
                   const { name, location, price_range } = values;
 
-                  const newRestaurant = { name, location, price_range };
-                  dispatch(addRestaurantAsync(newRestaurant));
+                  if (restaurantInitValues) {
+                     const data = {
+                        id: restaurantInitValues.id,
+                        name,
+                        location,
+                        price_range,
+                     };
+                     dispatch(updateRestaurantAsync(data));
+                  } else {
+                     const newRestaurant = { name, location, price_range };
+                     dispatch(addRestaurantAsync(newRestaurant));
+                  }
 
                   setSuccess(true);
                   resetForm();

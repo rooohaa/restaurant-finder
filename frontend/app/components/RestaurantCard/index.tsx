@@ -1,4 +1,9 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import {
+   deleteRestaurantAsync,
+   TRestaurantsData,
+} from 'store/reducers/restaurantsReducer';
 
 import Link from 'next/link';
 import { CardWrapper } from './style';
@@ -8,6 +13,7 @@ interface IProps {
    name: string;
    location: string;
    price_range: string;
+   onEdit: (rest: TRestaurantsData) => void;
 }
 
 const RestaurantCard: React.FC<IProps> = ({
@@ -15,7 +21,14 @@ const RestaurantCard: React.FC<IProps> = ({
    name,
    location,
    price_range,
+   onEdit,
 }) => {
+   const dispatch = useDispatch();
+
+   const handleDelete = () => {
+      dispatch(deleteRestaurantAsync(id));
+   };
+
    return (
       <CardWrapper>
          <span className="res-id">#{id}</span>
@@ -27,11 +40,11 @@ const RestaurantCard: React.FC<IProps> = ({
          </div>
 
          <div className="controls">
-            <button>
+            <button onClick={() => onEdit({ id, name, location, price_range })}>
                <img src="/icons/pen-solid.svg" alt="Edit icon" />
             </button>
 
-            <button>
+            <button onClick={handleDelete}>
                <img src="/icons/times-solid.svg" alt="Delete icon" />
             </button>
 
