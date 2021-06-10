@@ -58,14 +58,20 @@ const ModalForm: React.FC<IProps> = ({ onClose, restaurantInitValues }) => {
                         price_range,
                      };
                      dispatch(updateRestaurantAsync(data));
+                     resetForm({
+                        values: {
+                           name: '',
+                           location: '',
+                           price_range: '',
+                        },
+                     });
                   } else {
                      const newRestaurant = { name, location, price_range };
                      dispatch(addRestaurantAsync(newRestaurant));
+                     resetForm();
                   }
 
                   setSuccess(true);
-                  resetForm();
-
                   setTimeout(() => setSuccess(false), 2000);
                }}
                validateOnBlur={true}
