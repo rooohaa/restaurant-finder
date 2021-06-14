@@ -54,9 +54,7 @@ const getRestaurantById = async (req, res) => {
          'SELECT * FROM restaurants WHERE id = $1;',
          [restaurantId]
       );
-      res.status(200).json({
-         restaurant: result.rows[0],
-      });
+      res.status(200).json(result.rows[0]);
    } catch (e) {
       console.log('Error ocurred: ', e);
    }
