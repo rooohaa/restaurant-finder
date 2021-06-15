@@ -71,11 +71,6 @@ const ModalOverlay = styled.div`
          font-size: 14px;
          line-height: 16px;
 
-         &.success-message {
-            background-color: rgba(28, 96, 91, 0.2);
-            color: #42b693;
-         }
-
          &.error-message {
             background-color: rgba(187, 118, 20, 0.2);
             color: #f79202;

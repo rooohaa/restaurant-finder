@@ -7,3 +7,4 @@ export { RestaurantCard } from './RestaurantCard';
 export { Spinner } from './Spinner';
 export { ReviewCard } from './ReviewCard';
 export { StarRating } from './StarRating';
+export { ReviewForm } from './ReviewForm';

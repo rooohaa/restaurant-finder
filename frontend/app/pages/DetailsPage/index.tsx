@@ -1,4 +1,5 @@
 import React from 'react';
+import { ReviewForm } from 'app/components';
 import { TRestaurantsData } from 'store/reducers/restaurantsReducer';
 import { RestaurantInfo } from './RestaurantInfo';
 import { Reviews } from './Reviews';
@@ -12,6 +13,7 @@ const DetailsPage: React.FC<{ restaurant: TRestaurantsData }> = ({
       <DetailsSection>
          <RestaurantInfo restaurant={restaurant} />
          <Reviews />
+         <ReviewForm />
       </DetailsSection>
    );
 };

@@ -15,6 +15,25 @@ export const getReviewsAsync = createAsyncThunk(
    }
 );
 
+export const postReviewAsync = createAsyncThunk(
+   'reviews/postReview',
+   async (data: TReviewsFormData) => {
+      const res = await fetch(`${BASE_URL}/api/reviews`, {
+         method: 'POST',
+         headers: {
+            'Content-type': 'application/json',
+         },
+         body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+         const review = await res.json();
+
+         return { review };
+      }
+   }
+);
+
 const initialState: InitState = {
    reviews: [],
 };
@@ -27,8 +46,18 @@ const reviewsSlice = createSlice({
       [`${getReviewsAsync.fulfilled}`]: (state, action) => {
          state.reviews = action.payload.reviews;
       },
+      [`${postReviewAsync.fulfilled}`]: (state, action) => {
+         state.reviews.push(action.payload.review);
+      },
    },
 });
+
+type TReviewsFormData = {
+   name: string;
+   review: string;
+   rating: number;
+   restaurant_id: number;
+};
 
 export type TReviewsData = {
    id: number;

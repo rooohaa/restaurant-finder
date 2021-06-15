@@ -23,7 +23,6 @@ interface IProps {
 }
 
 const ModalForm: React.FC<IProps> = ({ onClose, restaurantInitValues }) => {
-   const [success, setSuccess] = useState<boolean>(false);
    const [error, setError] = useState<boolean>(false);
 
    const dispatch = useDispatch();
@@ -70,9 +69,7 @@ const ModalForm: React.FC<IProps> = ({ onClose, restaurantInitValues }) => {
                      dispatch(addRestaurantAsync(newRestaurant));
                      resetForm();
                   }
-
-                  setSuccess(true);
-                  setTimeout(() => setSuccess(false), 2000);
+                  onClose();
                }}
                validateOnBlur={true}
                validationSchema={validationSchema}
@@ -118,13 +115,7 @@ const ModalForm: React.FC<IProps> = ({ onClose, restaurantInitValues }) => {
                         )}
                      </div>
 
-                     {!error && success && (
-                        <div className="message success-message">
-                           Form successfully submitted!
-                        </div>
-                     )}
-
-                     {!success && error && (
+                     {error && (
                         <div className="message error-message">
                            Server error. Please, try again later.
                         </div>
