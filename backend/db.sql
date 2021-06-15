@@ -10,5 +10,5 @@ CREATE TABLE reviews (
    name VARCHAR(50) NOT NULL,
    review TEXT NOT NULL,
    rating INT CHECK(rating > 0 AND rating <= 5),
-   restaurant_id INT NOT NULL REFERENCES restaurants(id) 
+   restaurant_id INT NOT NULL REFERENCES restaurants(id) ON DELETE CASCADE
 );

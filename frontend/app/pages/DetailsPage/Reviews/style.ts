@@ -8,6 +8,7 @@ export const ReviewsWrap = styled.section`
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-around;
+      row-gap: 25px;
 
       h3 {
          color: #d9e2ef;

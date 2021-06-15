@@ -4,11 +4,15 @@ import { Container } from 'app/sc/Container';
 export const InfoWrapper = styled.div`
    ${Container} {
       display: flex;
-      align-items: flex-start;
-      column-gap: 30%;
+      align-items: center;
+      justify-content: center;
+      position: relative;
    }
 
    a.back-link {
+      position: absolute;
+      left: 0;
+      top: 0;
       display: flex;
       align-items: center;
       column-gap: 10px;
